@@ -37,7 +37,7 @@ class PageController extends Controller
 
 		$request = $this->getRequest();
 		if ($request->getMethod() == 'POST') {
-			$form->bindRequest($request);
+			$form->bind($request);
 
 			if ($form->isValid()) {
 
@@ -47,8 +47,8 @@ class PageController extends Controller
 					->setTo($this->container->getParameter('blogger_blog.emails.contact_email'))
 					->setBody($this->renderView('BloggerBlogBundle:Page:contactEmail.txt.twig', array('enquiry' => $enquiry)));
 				$this->get('mailer')->send($message);
-				
-				$this->get('session')->setFlash('blogger-notice', 'Your contact enquiry was successfully sent. Thank you!');
+
+				$this->get('session')->set('blogger-notice', 'Your contact enquiry was successfully sent. Thank you!');
 
 		        // Redirect - This is important to prevent users re-posting
 		        // the form if they refresh the page
