@@ -1,10 +1,20 @@
+<ol class="media-list comment-list">
 {% for comment in comments %}
-    <article class="comment {{ cycle(['odd', 'even'], loop.index0) }}" id="comment-{{ comment.id }}">
-        <header>
-            <p><span class="highlight">{{ comment.user }}</span> commented <time datetime="{{ comment.created|date('c') }}">{{ comment.created|created_ago }}</time></p>
-        </header>
-        <p>{{ comment.comment }}</p>
-    </article>
+	<li class="media comment">
+		<img src="http://0.gravatar.com/avatar/ad516503a11cd5ca435acc9bb6523536?s=74" width="74" height="74" alt="" class="avatar media-object pull-left img-circle">
+
+        <div class="media-body">
+
+            <h4 class="media-heading author-vcard">
+                <cite class="fn">{{comment.user}}</cite>
+                <span class="comment-meta commentmetadata"><time datetime="{{ comment.created|date('c') }}">{{ comment.created|created_ago }}</time></span>
+            </h4>
+            <p>{{ comment.comment }}</p>
+
+        </div>
+	</li>
+    
 {% else %}
     <p>There are no comments for this post. Be the first to comment...</p>
 {% endfor %}
+</ol>

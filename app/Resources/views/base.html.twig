@@ -1,68 +1,182 @@
 <!DOCTYPE html>
+<!--[if lt IE 7]>   <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>      <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>      <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html"; charset=utf-8" />
-        <title>{% block title %}Decebal DevBlog{% endblock %} - Decebal DevBlog</title>
-        <!--[if lt IE 9]>
-            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+        <meta http-equiv="Content-Type" content="text/html"; charset="utf-8" />
+        <title>{% block title %}Decebal - DevBlog{% endblock %}</title>
+        <meta name="description" content="" />
+
+        <!-- Mobile Devices Viewport Resset-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+
         {% block stylesheets %}
-            <link href='http://fonts.googleapis.com/css?family=Irish+Grover' rel='stylesheet' type='text/css'>
-            <link href='http://fonts.googleapis.com/css?family=La+Belle+Aurore' rel='stylesheet' type='text/css'>
-            <link href="{{ asset('css/screen.css') }}" type="text/css" rel="stylesheet" />
+            <link rel="stylesheet" type="text/css" href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}"/>
+            <link rel="stylesheet" type="text/css" href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}"/>
+            <!--[if IE 8]>
+                <link rel="stylesheet" type="text/css" href="{{ asset('vendor/font-awesome/css/font-awesome-ie7.min.css') }}"/>
+            <![endif]-->
+            <link rel="stylesheet" type="text/css" href="{{ asset('vendor/prettyPhoto/css/prettyPhoto.css') }}"/>
+            <link href='http://fonts.googleapis.com/css?family=Droid+Sans:400,700|Lato:300,400,700,400italic,700italic|Droid+Serif' rel='stylesheet' type='text/css'>
         {% endblock %}
+
+        {% block javascriptHead %}
+            <script type="text/javascript" src="{{ asset('vendor/modernizr-2.6.2-respond-1.1.0.min.js') }}"></script>
+         {% endblock %}
+
         <link rel="shortcut icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
 
-        <section id="wrapper">
-            <header id="header">
-                <div class="top">
-                    {% block navigation %}
-                        <nav>
-                            <ul class="navigation">
-                               <li>
-                                   <a href="{{ path('BloggerBlogBundle_homepage') }}">Home</a>
-                               </li>
-                               <li>
-                                   <a href="{{ path('BloggerBlogBundle_about') }}">About</a>
-                               </li>
-                               <li>
-                                   <li><a href="{{ path('BloggerBlogBundle_contact') }}">Contact</a></li>
-                               </li>
-                           </ul>
-                       </nav>
-                       {% endblock %}
+        <h1 class="sr-only">{% block titleText %}Decebal - DevBlog{% endblock %}</h1>
+        {% block navigation %}
+        <nav id="header" class="header-navbar" role="navigation">
+            <div class="header-navbar-inner container">
+                <div id="brand" class="navbar-brand">
+                    <a href="{{ path('BloggerBlogBundle_homepage') }}" rel="bookmark">
+                       <img src="{{ asset('img/logo.png') }}" data-src="{{ asset('img/logo.png') }}" data-src-retina="{{ asset('img/logo-retina.png') }}" width="244" height="56" alt="">
+                      <!--fallback for no javascript browsers-->
+                        <noscript>
+                            <img src="{{ asset('img/logo.png') }}" alt="">
+                        </noscript>
+                    </a>
+                </div>
+                <ul class="nav nav-pages hidden-xs">
+                    {% block menuItems1 %}
+                    <li><a href="{{ path('BloggerBlogBundle_about') }}">About</a></li>
+                    <li><a href="{{ path('BloggerBlogBundle_contact') }}">Contact</a></li>
+                    {% endblock %}
+                </ul>
+                <ul class="nav nav-icons">
+                    {% block menuItems2 %}
+                    <li>
+                        <a href="#" class="btn-icon" data-toggle=".header-navbar-inner" data-toggle-class="search-toggled-in">
+                            <span class="search-toggled-out-icon glyphicon glyphicon-search"></span>
+                            <span class="search-toggled-in-icon glyphicon glyphicon-remove"></span>
+                        </a>
+                    </li>
+                    {% endblock %}
+                </ul>
+                <div class="search-wrapper js-stoppropagation">
+                   {% block search_form %}
+                    <div class="search-wrapper-inner">
+                        <form>
+                            <input type="text" value="" placeholder="search ... ">
+                            <button class="btn-icon" type="submit"><span class="glyphicon glyphicon-search"></span></button>
+                        </form>
+                    </div>
+                    {% endblock %}
+                </div>
+                <ul class="nav navbar-nav">
+                    {% block menuItems3 %}{% endblock %}
+                </ul>
+            </div>
+        </nav>
+        {% endblock %}
+
+        <div id="main" class="container">
+            {% block banners %}{% endblock %}
+
+            <div id="content" class="content section row">
+                {% block body %}{% endblock %}
+                {% block sidebar %}{% endblock %}
+            </div>
+
+
+            <footer id="footer" class="footer-area">
+                {% block footer %}
+                <div class="footer-top container">
+                    <div class="row">
+
+                        <div class="widget col-xs-12 col-sm-4">
+
+                            <h4 class="widget-title">Categories</h4>
+
+                            <ul class="entries links links-2-cols">
+                                <li><a href="#">Entertainment</a></li>
+                                <li><a href="#">Tablet</a></li>
+                            </ul>
+
+                        </div><!--/.col-3-->
+
+                        <div class="clearfix visible-xs"></div>
+
+                        <div class="widget col-xs-6 col-sm-2">
+
+                            <h4 class="widget-title">Information</h4>
+
+                            <ul class="entries links links">
+                                <li><a href="{{ path('BloggerBlogBundle_about') }}">About</a></li>
+                                <li><a href="{{ path('BloggerBlogBundle_contact') }}">  Contact</a></li>
+                            </ul>
+
+                        </div><!--/.col-3-->
+
+                        <div class="widget col-xs-6 col-sm-2">
+
+                            <h4 class="widget-title">Follow Us</h4>
+
+                            <ul class="entries links">
+                                <li><a href="#"><i class="icon-facebook-sign icon-2x"></i> Facebook</a></li>
+                                <li><a href="#"><i class="icon-twitter-sign icon-2x"></i> Twitter</a></li>
+                                <li><a href="#"><i class="icon-google-plus-sign icon-2x"></i> Google Plus</a></li>
+                                <li><a href="#"><i class="icon-linkedin-sign icon-2x"></i> Linkedin</a></li>
+                            </ul>
+
+                        </div><!--/.col-3-->
+
+                        <div class="clearfix visible-xs"></div>
+
+                        <div class="widget col-xs-12 col-sm-4">
+
+                            <h4 class="widget-title">Subscribe</h4>
+
+                            <form class="form-horizontal" role="form">
+                                <div class="form-group">
+                                    <label for="subscribeEmail" class="col-lg-2 control-label">EMAIL</label>
+                                    <div class="col-lg-10">
+                                        <input type="text" class="form-control" id="subscribeEmail" placeholder="Your Email">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-lg-2 control-label">RSS</label>
+                                    <div class="col-lg-10">
+                                        <p class="form-control-static">
+                                            <a href=""><i class="icon-rss-sign"></i> Posts</a> &nbsp; &nbsp;
+                                            <a href=""><i class="icon-rss-sign"></i> Comments</a>
+                                        </p>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div><!--/.col-3-->
+
+                    </div><!--row.-->
+
                 </div>
 
-                <hgroup>
-                    <h2>
-                        {% block blog_title %}
-                            <a href="{{ path('BloggerBlogBundle_homepage') }}">Decebal Devblog<a>
-                        {% endblock %}
-                    </h2>
-                    <h3>
-                        {% block blog_tagline %}
-                            <a href="{{ path('BloggerBlogBundle_homepage') }}">creating a blog in Symfony2</a>
-                        {% endblock %}
-                    </h3>
-                </hgroup>
-            </header>
-
-            <section class="main-col">
-                {% block body %}{% endblock %}
-            </section>
-            <aside class="sidebar">
-                {% block sidebar %}{% endblock %}
-            </aside>
-
-            <div id="footer">
-                {% block footer %}
-                    Symfony2 blog tutorial - created by <a href="https://github.com/dsyph3r">dsyph3r</a>
+                <div class="footer-bottom">
+                    <div class="container aligncenter">
+                        <p>&copy;2013 <p>
+                    </div>
+                </div>
                 {% endblock %}
-            </div>
-        </section>
+            </footer>
+        </div>
 
-        {% block javascripts %}{% endblock %}
+        {% block javascripts %}
+             <script type="text/javascript" src="{{ asset('vendor/jquery-1.10.1.min.js') }}"></script>
+             <!--
+                <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+                <script>window.jQuery || document.write('<script src="vendor/jquery-1.10.1.min.js"><\/script>')</script>
+            -->
+            <script type="text/javascript" src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('vendor/prettyPhoto/jquery.prettyPhoto.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('vendor/jquery.unveil.min.js') }}"></script>
+
+        {% endblock %}
     </body>
 </html>

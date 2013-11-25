@@ -1,6 +1,20 @@
-<form action="{{ path('BloggerBlogBundle_comment_create', { 'blog_id' : comment.blog.id } ) }}" method="post" {{ form_enctype(form) }} class="blogger">
-    {{ form_widget(form) }}
-    <p>
-        <input type="submit" value="Submit">
-    </p>
+<form action="{{ path('BloggerBlogBundle_comment_create', { 'blog_id' : comment.blog.id } ) }}" class="form-inline row" method="post" {{ form_enctype(form) }} id="commentform">
+	{{ form_errors(form) }}
+	
+	<div class="form-group col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        {{ form_label(form.user) }}
+        {{ form_widget(form.user, {'attr': {'class' : 'form-control', 'placeholder':'Your Name'}}) }}
+    </div>
+
+    <div class="form-group col-lg-12 col-md-12 col-sm-12">
+        {{ form_label(form.comment) }}
+        {{ form_widget(form.comment, {'attr': {'class' : 'form-control', 'placeholder':'Your Message'}}) }}
+    </div>
+
+    {{ form_rest(form) }}
+
+	<div class="form-group col-lg-12 col-md-12 col-sm-12">
+		<button class="btn btn-primary" name="submit" id="submit">Send Message</button>
+	</div>
+
 </form>

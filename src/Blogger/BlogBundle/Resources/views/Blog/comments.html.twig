@@ -1,0 +1,15 @@
+<div id="comments" class="comments-area indented">
+
+    <h4 class="comments-title">Comments</h4>
+
+    {% include 'BloggerBlogBundle:Comment:index.html.twig' with { 'comments': comments } %}
+
+    <div id="respond" class="comments-respond">
+
+        <h3 id="reply-title" class="comment-reply-title">Leave a Reply</h3>
+
+        {{ render(controller( 'BloggerBlogBundle:Comment:new', { 'blog_id': blog.id } )) }}
+
+    </div><!-- #respond -->
+
+</div><!--/#comments-->
